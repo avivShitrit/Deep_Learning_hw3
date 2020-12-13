@@ -1,5 +1,5 @@
 # CS236781: Deep Learning on Computational Accelerators
-# Homework Assignment 3
+# Homework Assignment 3 due date 7/1/21
 
 Faculty of Computer Science, Technion.
 
