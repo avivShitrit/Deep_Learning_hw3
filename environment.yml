@@ -1,11 +1,11 @@
-name: cs236781-hw
+name: cs236781-hw-gpu
 channels:
   - pytorch
   - defaults
   - conda-forge
 dependencies:
   - cmake # for compiling atari-py
-  - cudatoolkit
+  - cudatoolkit=11
   - cython
   - ffmpeg=4.2.2 # version 4.3 doesn't work with x264 through gym.Monitor
   - freetype
@@ -27,7 +27,7 @@ dependencies:
   - pytest-xdist
   - python-graphviz # for graphviz on Windows
   - python=3.8.6
-  - pytorch=1.6.0
+  - pytorch=1.7.0
   - rise
   - scikit-learn
   - scipy
@@ -37,7 +37,6 @@ dependencies:
   - torchtext
   - torchvision
   - tqdm
-  - x264
   - pip
   - pip:
     - torchviz
