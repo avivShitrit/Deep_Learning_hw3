@@ -222,7 +222,8 @@ class SequenceBatchSampler(torch.utils.data.Sampler):
         #  you can drop it.
         idx = None  # idx should be a 1-d list of indices.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        l = len(self.dataset)//self.batch_size*self.batch_size
+        idx = list(range(l))
         # ========================
         return iter(idx)
 
@@ -269,7 +270,38 @@ class MultilayerGRU(nn.Module):
         #      then call self.register_parameter() on them. Also make
         #      sure to initialize them. See functions in torch.nn.init.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        input_dim = self.in_dim
+        for layer in range(self.n_layers):
+            xz = nn.Linear(input_dim, self.h_dim, bias=False)
+            hz = nn.Linear(self.h_dim, self.h_dim)
+            
+            self.add_module(f'xz_{layer}', xz)
+            self.add_module(f'hz_{layer}', hz)
+            
+            
+            xr = nn.Linear(input_dim, self.h_dim, bias=False)
+            hr = nn.Linear(self.h_dim, self.h_dim)
+            
+            self.add_module(f'xr_{layer}', xr)
+            self.add_module(f'hr_{layer}', hr)
+            
+            
+            xg = nn.Linear(input_dim, self.h_dim, bias=False)
+            hg = nn.Linear(self.h_dim, self.h_dim)
+            
+            self.add_module(f'xg_{layer}', xg)
+            self.add_module(f'hg_{layer}', hg)
+            
+            input_dim = self.h_dim
+            
+        # adding last out layer and dropout
+        
+        dropout_layer = nn.Dropout(dropout)
+        last = nn.Linear(self.h_dim, self.out_dim)
+        
+        self.add_module("dropout", dropout_layer)
+        self.add_module("y", last)
+        
         # ========================
 
     def forward(self, input: Tensor, hidden_state: Tensor = None):
@@ -307,6 +339,29 @@ class MultilayerGRU(nn.Module):
         #  Tip: You can use torch.stack() to combine multiple tensors into a
         #  single tensor in a differentiable manner.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        for layer_idx in range(self.n_layers):
+            h = layer_states[layer_idx]
+            next_input = []
+            for sample_idx in range(seq_len):
+                x = layer_input[:, sample_idx, :].type(torch.float)
+                z = getattr(self, f'xz_{layer_idx}')(x) + getattr(self, f'hz_{layer_idx}')(h)
+                z = torch.sigmoid(z)
+                
+                r = getattr(self, f'xr_{layer_idx}')(x) + getattr(self, f'hr_{layer_idx}')(h)
+                r = torch.sigmoid(r)
+                
+                g = getattr(self, f'xg_{layer_idx}')(x) + getattr(self, f'hg_{layer_idx}')(h * r)
+                g = torch.sigmoid(g)
+                
+                h = (z * h + (1 - z) * g)
+                
+                next_input.append(h)
+            
+            layer_states[layer_idx] = h
+            layer_input = self.dropout(torch.stack(next_input, 1))
+            
+        hidden_state = torch.stack(layer_states, 1)
+        layer_output = self.y.forward(layer_input)
+        
         # ========================
         return layer_output, hidden_state
