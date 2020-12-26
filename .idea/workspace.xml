@@ -20,15 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c4b373e-07d3-4594-98a9-14d538536766" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Part1_Sequence-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Part1_Sequence-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Part1_Sequence.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Part1_Sequence.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hw3/.ipynb_checkpoints/charnn-checkpoint.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw3/.ipynb_checkpoints/charnn-checkpoint.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hw3/answers.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw3/answers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hw3/charnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw3/charnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hw3/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw3/training.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +51,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608976767062</updated>
-      <workItem from="1608976769474" duration="1860000" />
+      <workItem from="1608976769474" duration="2502000" />
     </task>
     <servers />
   </component>

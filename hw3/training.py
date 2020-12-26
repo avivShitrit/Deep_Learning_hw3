@@ -270,7 +270,7 @@ class RNNTrainer(Trainer):
 
         output, self.h_s = self.model(x, self.h_s)
 
-        loss = self.loss_fn(output.view(-1, output.shape[-1]), y.reshape((-1, )))
+        loss = self.loss_fn(output.view(-1, output.shape[-1]), y.view(-1, ))
         loss = loss * seq_len
         loss.backward(retain_graph=True)
 
@@ -297,9 +297,9 @@ class RNNTrainer(Trainer):
             #  - Loss calculation
             #  - Calculate number of correct predictions
             # ====== YOUR CODE: ======
-            output = self.h_s = self.model(x, self.h_s)
+            output, self.h_s = self.model(x, self.h_s)
 
-            loss = self.loss_fn(output.view(-1, output.shape[-1]), y.reshape((-1, )))
+            loss = self.loss_fn(output.view(-1, output.shape[-1]), y.view(-1, ))
             loss = loss * seq_len
 
             num_correct = torch.sum(y == torch.argmax(output, -1))
