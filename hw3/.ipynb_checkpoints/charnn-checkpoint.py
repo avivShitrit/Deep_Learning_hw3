@@ -153,7 +153,16 @@ def hot_softmax(y, dim=0, temperature=1.0):
     """
     # TODO: Implement based on the above.
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    T = temperature
+    y = y/T
+    # reduce by max
+    y = y - torch.max(y, dim, keepdim=True)[0]
+    e_y = torch.exp(y)
+    N = 1 if dim==0 else y.shape[0]
+    s_e_y = torch.sum(e_y, dim=dim).view((N,1))
+    result = e_y / s_e_y
+    result = torch.squeeze(result) if dim==0 else result
+        
     # ========================
     return result
 
@@ -189,7 +198,23 @@ def generate_from_model(model, start_sequence, n_chars, char_maps, T):
     #  necessary for this. Best to disable tracking for speed.
     #  See torch.no_grad().
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    x = chars_to_onehot(start_sequence, char_to_idx).unsqueeze(0)
+    x = x.to(device)
+    h_s = None
+    
+    with torch.no_grad():
+        for smaple in range(n_chars - len(start_sequence)):
+            out, h_s = model(x, h_s)
+            
+            out = out[:, -1, :]
+            out_idx = torch.multinomial(hot_softmax(out, dim=-1, temperature=T), 1).item()
+            
+            next_char = idx_to_char[out_idx]
+            out_text += next_char
+            
+            onehot_output = chars_to_onehot(next_char, char_to_idx).to(device)
+            x = onehot_output.unsqueeze(0).to(device)
+            
     # ========================
 
     return out_text
