@@ -32,7 +32,8 @@ def part1_generation_params():
     temperature = 0.0001
     # TODO: Tweak the parameters to generate a literary masterpiece.
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    start_seq = "ACT II"
+    temperature = 0.4
     # ========================
     return start_seq, temperature
 
@@ -40,13 +41,8 @@ def part1_generation_params():
 part1_q1 = r"""
 **Your answer:**
 
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+The reason is that if we would train our model on the entire text the model will learn how to generate text's instead of words or chars, this will cause a generalization error and fix the model to specific text.
+When we split the text we can make a more "creative" model that will learn the writing style instead of memorizing texts.
 
 """
 
