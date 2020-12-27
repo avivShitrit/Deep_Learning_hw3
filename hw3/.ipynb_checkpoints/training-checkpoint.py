@@ -267,9 +267,11 @@ class RNNTrainer(Trainer):
         #  - Calculate number of correct char predictions
         # ====== YOUR CODE: ======
         self.optimizer.zero_grad()
-
+        self.model.to(self.device)
+        
         output, self.h_s = self.model(x, self.h_s)
-
+        self.h_s.to(self.device)
+        
         loss = self.loss_fn(output.view(-1, output.shape[-1]), y.view(-1, ))
         loss = loss * seq_len
         loss.backward(retain_graph=True)
@@ -297,7 +299,10 @@ class RNNTrainer(Trainer):
             #  - Loss calculation
             #  - Calculate number of correct predictions
             # ====== YOUR CODE: ======
+            self.model.to(self.device)
+        
             output, self.h_s = self.model(x, self.h_s)
+            self.h_s.to(self.device)
 
             loss = self.loss_fn(output.view(-1, output.shape[-1]), y.view(-1, ))
             loss = loss * seq_len

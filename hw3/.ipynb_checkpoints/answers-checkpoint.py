@@ -12,12 +12,12 @@ math (delimited with $$).
 def part1_rnn_hyperparams():
     hypers = dict(
         batch_size=256,
-        seq_len=64,
+        seq_len=100,
         h_dim=512,
-        n_layers=3,
-        dropout=0.5,
+        n_layers=2,
+        dropout=0.25,
         learn_rate=0.001,
-        lr_sched_factor=0.5,
+        lr_sched_factor=0.2,
         lr_sched_patience=2,
     )
     # TODO: Set the hyperparameters to train the model.
