@@ -20,8 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c4b373e-07d3-4594-98a9-14d538536766" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/hw3/.ipynb_checkpoints/answers-checkpoint.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw3/.ipynb_checkpoints/answers-checkpoint.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hw3/answers.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw3/answers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hw3/autoencoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw3/autoencoder.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +31,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JupyterTrust" id="130ef53f-0922-425e-8c87-0bbca9b22257" />
+  <component name="JupyterTrust" id="c44335e1-6950-4611-8af1-4599e27d3911" />
   <component name="ProjectId" id="1mBpJLAmkJxW734GfSrLetOorrf" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -53,6 +53,7 @@
       <option name="presentableId" value="Default" />
       <updated>1608976767062</updated>
       <workItem from="1608976769474" duration="3099000" />
+      <workItem from="1609053603096" duration="298000" />
     </task>
     <servers />
   </component>
@@ -69,5 +70,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

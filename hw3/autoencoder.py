@@ -9,7 +9,7 @@ class EncoderCNN(nn.Module):
 
         modules = []
 
-        # TODO:
+        # DONE:
         #  Implement a CNN. Save the layers in the modules list.
         #  The input shape is an image batch: (N, in_channels, H_in, W_in).
         #  The output shape should be (N, out_channels, H_out, W_out).
@@ -19,7 +19,26 @@ class EncoderCNN(nn.Module):
         #  use pooling or only strides, use any activation functions,
         #  use BN or Dropout, etc.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        # implementing an architecture inspired by the paper referred to in the note book
+        # layer 1
+        modules.append(nn.Conv2d(in_channels, 64, 5, stride=2))
+        modules.append(nn.BatchNorm2d(64))
+        modules.append(nn.ReLU())
+
+        # layer 2
+        modules.append(nn.Conv2d(64, 128, 5, stride=2))
+        modules.append(nn.BatchNorm2d(128))
+        modules.append(nn.ReLU())
+
+        # layer 3
+        modules.append(nn.Conv2d(128, 256, 5, stride=2))
+        modules.append(nn.BatchNorm2d(256))
+        modules.append(nn.ReLU())
+
+        # layer 4
+        modules.append(nn.Conv2d(256, out_channels, 1))
+        modules.append(nn.BatchNorm2d(out_channels))
+        modules.append(nn.ReLU())
         # ========================
         self.cnn = nn.Sequential(*modules)
 
@@ -33,7 +52,7 @@ class DecoderCNN(nn.Module):
 
         modules = []
 
-        # TODO:
+        # DONE:
         #  Implement the "mirror" CNN of the encoder.
         #  For example, instead of Conv layers use transposed convolutions,
         #  instead of pooling do unpooling (if relevant) and so on.
@@ -42,7 +61,25 @@ class DecoderCNN(nn.Module):
         #  output should be a batch of images, with same dimensions as the
         #  inputs to the Encoder were.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        # implementing an architecture inspired by the paper referred to in the note book
+        # layer 1 (decodes layer 4)
+        modules.append(nn.ConvTranspose2d(in_channels, 256, 5, stride=2))
+        modules.append(nn.BatchNorm2d(256))
+        modules.append(nn.ReLU())
+
+        # layer 2
+        modules.append(nn.ConvTranspose2d(256, 128, 5, stride=2))
+        modules.append(nn.BatchNorm2d(128))
+        modules.append(nn.ReLU())
+
+        # layer 3
+        modules.append(nn.ConvTranspose2d(128, 32, 5, stride=2))
+        modules.append(nn.BatchNorm2d(32))
+        modules.append(nn.ReLU())
+
+        # layer 4
+        modules.append(nn.ConvTranspose2d(32, out_channels, 4))
+        modules.append(nn.BatchNorm2d(out_channels))
         # ========================
         self.cnn = nn.Sequential(*modules)
 
@@ -85,24 +122,39 @@ class VAE(nn.Module):
             return h.shape[1:], torch.numel(h) // h.shape[0]
 
     def encode(self, x):
-        # TODO:
+        # DONE:
         #  Sample a latent vector z given an input x from the posterior q(Z|x).
         #  1. Use the features extracted from the input to obtain mu and
         #     log_sigma2 (mean and log variance) of q(Z|x).
         #  2. Apply the reparametrization trick to obtain z.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        N = x.shape[0]
+
+        # obtaining mu and sigma
+        h = self.features_encoder(x)
+        h = h.reshape((N, -1))
+        mu = self.mu(h)
+        log_sigma2 = self.log_sigma2(h)
+
+        # obtaining z
+        mean = torch.zeros_like(mu)
+        std = torch.ones_like(mu)
+        u = torch.normal(mean, std)
+        sigma = torch.exp(log_sigma2)
+        z = mu + sigma * u
         # ========================
 
         return z, mu, log_sigma2
 
     def decode(self, z):
-        # TODO:
+        # DONE:
         #  Convert a latent vector back into a reconstructed input.
         #  1. Convert latent z to features h with a linear layer.
         #  2. Apply features decoder.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        z = self.reconstruct(z)
+        h = z.reshape((-1,) + self.features_shape)
+        x_rec = self.features_decoder(h)
         # ========================
 
         # Scale to [-1, 1] (same dynamic range as original images).
@@ -112,7 +164,7 @@ class VAE(nn.Module):
         samples = []
         device = next(self.parameters()).device
         with torch.no_grad():
-            # TODO:
+            # DONE:
             #  Sample from the model. Generate n latent space samples and
             #  return their reconstructions.
             #  Notes:
@@ -121,7 +173,12 @@ class VAE(nn.Module):
             #    Instead of sampling from N(psi(z), sigma2 I), we'll just take
             #    the mean, i.e. psi(z).
             # ====== YOUR CODE: ======
-            raise NotImplementedError()
+            # z ~ N(0,1)
+            for i in range(n):
+                mean = torch.zeros(self.z_dim, device=device)
+                std = torch.ones_like(mean)
+                z = torch.normal(mean, std)
+                samples.append(self.decode(z).squeeze().cpu())
             # ========================
 
         # Detach and move to CPU for display purposes
@@ -148,13 +205,38 @@ def vae_loss(x, xr, z_mu, z_log_sigma2, x_sigma2):
     all three are scalars, averaged over the batch dimension.
     """
     loss, data_loss, kldiv_loss = None, None, None
-    # TODO:
+    # DONE:
     #  Implement the VAE pointwise loss calculation.
     #  Remember:
     #  1. The covariance matrix of the posterior is diagonal.
     #  2. You need to average over the batch dimension.
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    N = x.shape[0]
+    z_dim_sigma = z_log_sigma2.shape[-1]
+    z_dim_mu = z_mu.shape[-1]
+
+    # data loss
+    l2norm = nn.MSELoss()
+    data_loss = l2norm(x, xr)
+    data_loss = (1 / x_sigma2) * data_loss
+
+    # KL divergence loss
+    sum_batches = torch.zeros((N, z_dim_sigma, z_dim_sigma))
+    z_sigma = torch.exp(z_log_sigma2)
+    # populating the matrix diagonal
+    sum_batches.as_strided(z_log_sigma2.size(), [sum_batches.stride(0), z_dim_sigma + 1]).copy_(z_sigma)
+
+    kldiv_list = []
+
+    for i in range(N):
+        kldiv_curr = torch.trace(sum_batches[i]) + torch.norm(z_mu[i]) ** 2 - z_dim_mu - torch.log(
+            torch.det(sum_batches[i]))
+        kldiv_list.append(kldiv_curr)
+
+    kldiv_loss = torch.sum(torch.stack(kldiv_list)) / N
+
+    # VAE loss
+    loss = data_loss + kldiv_loss
     # ========================
 
     return loss, data_loss, kldiv_loss
