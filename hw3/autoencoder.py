@@ -105,9 +105,11 @@ class VAE(nn.Module):
 
         self.features_shape, n_features = self._check_features(in_size)
 
-        # TODO: Add more layers as needed for encode() and decode().
+        # DONE: Add more layers as needed for encode() and decode().
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        self.mu = nn.Linear(n_features, self.z_dim)
+        self.log_sigma2 = nn.Linear(n_features, self.z_dim)
+        self.reconstruct = nn.Linear(self.z_dim, n_features)
         # ========================
 
     def _check_features(self, in_size):
