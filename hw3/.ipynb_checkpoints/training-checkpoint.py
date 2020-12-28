@@ -96,13 +96,11 @@ class Trainer(abc.ABC):
             actual_num_epochs += 1
 
             train_result = self.train_epoch(dl_train, **kw)
-            tr_loss = sum(train_result.losses) / len(dl_train)
-            train_loss.append(tr_loss)
+            train_loss.extend(train_result.losses)
             train_acc.append(train_result.accuracy)
 
             test_result = self.test_epoch(dl_test, **kw)
-            te_loss = sum(test_result.losses) / len(dl_test)
-            test_loss.append(te_loss)
+            test_loss.extend(test_result.losses)
             test_acc.append(test_result.accuracy)
 
             if best_acc is None or best_acc < test_acc[-1]:
@@ -319,7 +317,20 @@ class VAETrainer(Trainer):
         x = x.to(self.device)  # Image batch (N,C,H,W)
         # TODO: Train a VAE on one batch.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        self.optimizer.zero_grad()
+
+        # forward pass
+        xr, z_mu, z_log_sigma2 = self.model(x)
+
+        # loss calculation
+        loss, data_loss, kldiv_loss = self.loss_fn(x, xr, z_mu, z_log_sigma2)
+
+        # backpropagation
+        loss.backward()
+
+        # step
+        self.optimizer.step()
+
         # ========================
 
         return BatchResult(loss.item(), 1 / data_loss.item())

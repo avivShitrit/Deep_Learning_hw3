@@ -11,13 +11,13 @@ math (delimited with $$).
 
 def part1_rnn_hyperparams():
     hypers = dict(
-        batch_size=256,
+        batch_size=128,
         seq_len=64,
-        h_dim=512,
+        h_dim=1024,
         n_layers=3,
-        dropout=0.5,
+        dropout=0.3,
         learn_rate=0.001,
-        lr_sched_factor=0.5,
+        lr_sched_factor=0.3,
         lr_sched_patience=2,
     )
     # TODO: Set the hyperparameters to train the model.
@@ -49,39 +49,29 @@ When we split the text we can make a more "creative" model that will learn the w
 part1_q2 = r"""
 **Your answer:**
 
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+When generating text the model also uses the data stored in the hidden states, the hidden states after training also contain data regarding connections between sequences so the model can generate text that is longer than the sequence length due to those connections.
 
 """
 
 part1_q3 = r"""
 **Your answer:**
 
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+During training, the model remembers the connections between sequences and their order of appearance which is very important when writing text, if we change the order of batches during training the model would get confused and eventually will generate random text that has no meaning.
 
 """
 
 part1_q4 = r"""
 **Your answer:**
 
+1. We use lower temperature when sampling using the model because we want the letters the model chooses to be as accurate as possible,
+using low temperature allows us to use only letters the has more distinct probabilities that suppose to be more accurate.
+The reason we use high temperature to train our model is that we want it to try also letters that has 
+similar probabilities and "explore" each one of them to find the more accurate one.
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+2. High temperature creates more equally spread probabilities so the model can try different paths to find the
+most accurate letter to choose, because there is no obvious accurate answer in that scenario.
+
+3. Low temperature creates less equally spread probabilities so the model has very limited choice determining what the next letter will be, because low probabilities will be very close to zero and high probabilities will be even higher.
 
 """
 # ==============
