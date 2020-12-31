@@ -22,6 +22,7 @@
     <list default="true" id="2c4b373e-07d3-4594-98a9-14d538536766" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Part2_VAE.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Part2_VAE.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hw3/answers.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw3/answers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hw3/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw3/training.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +55,7 @@
       <option name="presentableId" value="Default" />
       <updated>1608976767062</updated>
       <workItem from="1608976769474" duration="3099000" />
-      <workItem from="1609053603096" duration="2216000" />
+      <workItem from="1609053603096" duration="3958000" />
     </task>
     <task id="LOCAL-00001" summary="autoencoder.py implemented">
       <created>1609053930225</created>
@@ -70,7 +71,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609054128740</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="VAE training">
+      <created>1609056239770</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1609056239770</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -90,17 +98,18 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="autoencoder.py implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="autoencoder.py implemented" />
+    <MESSAGE value="VAE training" />
+    <option name="LAST_COMMIT_MESSAGE" value="VAE training" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="-1353" y="-148" key="CommitChangelistDialog2" timestamp="1609054128583">
+    <state x="-1353" y="-148" key="CommitChangelistDialog2" timestamp="1609056239454">
       <screen x="-1920" y="-218" width="1920" height="1057" />
     </state>
-    <state x="-1353" y="-148" key="CommitChangelistDialog2/-1920.-218.1920.1057/0.23.1280.710@-1920.-218.1920.1057" timestamp="1609054128583" />
-    <state x="-1360" y="4" key="Vcs.Push.Dialog.v2" timestamp="1609054129949">
+    <state x="-1353" y="-148" key="CommitChangelistDialog2/-1920.-218.1920.1057/0.23.1280.710@-1920.-218.1920.1057" timestamp="1609056239454" />
+    <state x="-1360" y="4" key="Vcs.Push.Dialog.v2" timestamp="1609056244889">
       <screen x="-1920" y="-218" width="1920" height="1057" />
     </state>
-    <state x="-1360" y="4" key="Vcs.Push.Dialog.v2/-1920.-218.1920.1057/0.23.1280.710@-1920.-218.1920.1057" timestamp="1609054129949" />
+    <state x="-1360" y="4" key="Vcs.Push.Dialog.v2/-1920.-218.1920.1057/0.23.1280.710@-1920.-218.1920.1057" timestamp="1609056244889" />
     <state x="-1147" y="198" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1609053694268">
       <screen x="-1920" y="-218" width="1920" height="1057" />
     </state>
