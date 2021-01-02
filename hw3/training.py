@@ -96,13 +96,11 @@ class Trainer(abc.ABC):
             actual_num_epochs += 1
 
             train_result = self.train_epoch(dl_train, **kw)
-            tr_loss = sum(train_result.losses) / len(dl_train)
-            train_loss.append(tr_loss)
+            train_loss.extend(train_result.losses)
             train_acc.append(train_result.accuracy)
 
             test_result = self.test_epoch(dl_test, **kw)
-            te_loss = sum(test_result.losses) / len(dl_test)
-            test_loss.append(te_loss)
+            test_loss.extend(test_result.losses)
             test_acc.append(test_result.accuracy)
 
             if best_acc is None or best_acc < test_acc[-1]:
@@ -267,9 +265,11 @@ class RNNTrainer(Trainer):
         #  - Calculate number of correct char predictions
         # ====== YOUR CODE: ======
         self.optimizer.zero_grad()
-
+        self.model.to(self.device)
+        
         output, self.h_s = self.model(x, self.h_s)
-
+        self.h_s.to(self.device)
+        
         loss = self.loss_fn(output.view(-1, output.shape[-1]), y.view(-1, ))
         loss = loss * seq_len
         loss.backward(retain_graph=True)
@@ -297,7 +297,10 @@ class RNNTrainer(Trainer):
             #  - Loss calculation
             #  - Calculate number of correct predictions
             # ====== YOUR CODE: ======
+            self.model.to(self.device)
+        
             output, self.h_s = self.model(x, self.h_s)
+            self.h_s.to(self.device)
 
             loss = self.loss_fn(output.view(-1, output.shape[-1]), y.view(-1, ))
             loss = loss * seq_len

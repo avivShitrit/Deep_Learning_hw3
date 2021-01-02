@@ -11,13 +11,13 @@ math (delimited with $$).
 
 def part1_rnn_hyperparams():
     hypers = dict(
-        batch_size=256,
+        batch_size=128,
         seq_len=64,
-        h_dim=512,
+        h_dim=1024,
         n_layers=3,
-        dropout=0.5,
+        dropout=0.4,
         learn_rate=0.001,
-        lr_sched_factor=0.5,
+        lr_sched_factor=0.3,
         lr_sched_patience=2,
     )
     # TODO: Set the hyperparameters to train the model.
@@ -172,24 +172,25 @@ PART3_CUSTOM_DATA_URL = None
 
 def part3_gan_hyperparams():
     hypers = dict(
-        batch_size=0,
-        z_dim=0,
-        data_label=0,
-        label_noise=0.0,
+        batch_size=8,
+        z_dim=256,
+        data_label=1,
+        label_noise=0.1,
         discriminator_optimizer=dict(
-            type="",  # Any name in nn.optim like SGD, Adam
-            lr=0.0,
+            type="Adam",  # Any name in nn.optim like SGD, Adam
+            lr=0.0003,
             # You an add extra args for the optimizer here
         ),
         generator_optimizer=dict(
-            type="",  # Any name in nn.optim like SGD, Adam
-            lr=0.0,
+            type="Adam",  # Any name in nn.optim like SGD, Adam
+            lr=0.0003,
             # You an add extra args for the optimizer here
         ),
     )
     # TODO: Tweak the hyperparameters to train your GAN.
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+#     hypers['discriminator_optimizer']['lr'] = 0.001
+#     hypers['generator_optimizer']['lr'] = 0.001
     # ========================
     return hypers
 
