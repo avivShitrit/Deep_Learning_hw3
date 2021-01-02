@@ -20,23 +20,16 @@ class EncoderCNN(nn.Module):
         #  use BN or Dropout, etc.
         # ====== YOUR CODE: ======
         # implementing an architecture inspired by the paper referred to in the note book
-        # layer 1
-        modules.append(nn.Conv2d(in_channels, 64, 5, stride=2))
-        modules.append(nn.BatchNorm2d(64))
-        modules.append(nn.ReLU())
+        channels = [32, 64, 128, 256]
+        
+        for curr_channel in channels:
+            modules.append(nn.Conv2d(in_channels, curr_channel, 5, stride=2, padding=2))
+            modules.append(nn.BatchNorm2d(curr_channel))
+            modules.append(nn.ReLU())
+            in_channels = curr_channel
 
-        # layer 2
-        modules.append(nn.Conv2d(64, 128, 5, stride=2))
-        modules.append(nn.BatchNorm2d(128))
-        modules.append(nn.ReLU())
-
-        # layer 3
-        modules.append(nn.Conv2d(128, 256, 5, stride=2))
-        modules.append(nn.BatchNorm2d(256))
-        modules.append(nn.ReLU())
-
-        # layer 4
-        modules.append(nn.Conv2d(256, out_channels, 1))
+        # layer 5
+        modules.append(nn.Conv2d(curr_channel, out_channels, 5, padding=2))
         modules.append(nn.BatchNorm2d(out_channels))
         modules.append(nn.ReLU())
         # ========================
@@ -63,22 +56,15 @@ class DecoderCNN(nn.Module):
         # ====== YOUR CODE: ======
         # implementing an architecture inspired by the paper referred to in the note book
         # layer 1 (decodes layer 4)
-        modules.append(nn.ConvTranspose2d(in_channels, 256, 5, stride=2))
-        modules.append(nn.BatchNorm2d(256))
-        modules.append(nn.ReLU())
-
-        # layer 2
-        modules.append(nn.ConvTranspose2d(256, 128, 5, stride=2))
-        modules.append(nn.BatchNorm2d(128))
-        modules.append(nn.ReLU())
-
-        # layer 3
-        modules.append(nn.ConvTranspose2d(128, 32, 5, stride=2))
-        modules.append(nn.BatchNorm2d(32))
-        modules.append(nn.ReLU())
-
-        # layer 4
-        modules.append(nn.ConvTranspose2d(32, out_channels, 4))
+        channels = [256, 128, 64, 32]
+        
+        for curr_channel in channels:
+            modules.append(nn.ConvTranspose2d(in_channels, curr_channel, 5, stride=2, padding=2, output_padding=1))
+            modules.append(nn.BatchNorm2d(curr_channel))
+            modules.append(nn.ReLU())
+            in_channels = curr_channel
+        
+        modules.append(nn.ConvTranspose2d(curr_channel, out_channels, 5, stride=1, padding=2))
         modules.append(nn.BatchNorm2d(out_channels))
         # ========================
         self.cnn = nn.Sequential(*modules)
