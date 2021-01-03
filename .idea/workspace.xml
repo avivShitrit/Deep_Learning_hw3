@@ -20,11 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c4b373e-07d3-4594-98a9-14d538536766" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_01_2021,_17_12_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31_12_2020,_19_58_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31_12_2020__19_58__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ipynb_checkpoints/README-checkpoint.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/checkpoints/vae.pt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hw3/.ipynb_checkpoints/autoencoder-checkpoint.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Part2_VAE.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Part2_VAE.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hw3/.ipynb_checkpoints/answers-checkpoint.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw3/.ipynb_checkpoints/answers-checkpoint.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hw3/answers.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw3/answers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hw3/autoencoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/hw3/autoencoder.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +63,7 @@
       <workItem from="1608976769474" duration="3099000" />
       <workItem from="1609053603096" duration="3958000" />
       <workItem from="1609437255442" duration="578000" />
+      <workItem from="1609600280680" duration="982000" />
     </task>
     <task id="LOCAL-00001" summary="autoencoder.py implemented">
       <created>1609053930225</created>
@@ -87,7 +93,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609437326706</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="updated the DECODER and ENCODER">
+      <created>1609600330004</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1609600330004</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -108,20 +121,24 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="autoencoder.py implemented" />
     <MESSAGE value="VAE training" />
-    <option name="LAST_COMMIT_MESSAGE" value="VAE training" />
+    <MESSAGE value="updated the DECODER and ENCODER" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated the DECODER and ENCODER" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="-1353" y="-148" key="CommitChangelistDialog2" timestamp="1609437326292">
+    <state x="-1353" y="-148" key="CommitChangelistDialog2" timestamp="1609600328987">
       <screen x="-1920" y="-218" width="1920" height="1057" />
     </state>
     <state x="-1353" y="-148" key="CommitChangelistDialog2/-1920.-218.1920.1057/0.23.1280.710@-1920.-218.1920.1057" timestamp="1609437326292" />
-    <state x="-1360" y="4" key="Vcs.Push.Dialog.v2" timestamp="1609056244889">
+    <state x="-1353" y="-148" key="CommitChangelistDialog2/-1920.-218.1920.1057/0.23.1280.715@-1920.-218.1920.1057" timestamp="1609600328984" />
+    <state x="-1360" y="4" key="Vcs.Push.Dialog.v2" timestamp="1609600673735">
       <screen x="-1920" y="-218" width="1920" height="1057" />
     </state>
     <state x="-1360" y="4" key="Vcs.Push.Dialog.v2/-1920.-218.1920.1057/0.23.1280.710@-1920.-218.1920.1057" timestamp="1609056244889" />
-    <state x="-1147" y="198" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1609437329312">
+    <state x="-1360" y="4" key="Vcs.Push.Dialog.v2/-1920.-218.1920.1057/0.23.1280.715@-1920.-218.1920.1057" timestamp="1609600673735" />
+    <state x="-1147" y="198" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1609600637040">
       <screen x="-1920" y="-218" width="1920" height="1057" />
     </state>
     <state x="-1147" y="198" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.-218.1920.1057/0.23.1280.710@-1920.-218.1920.1057" timestamp="1609437329312" />
+    <state x="-1147" y="198" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.-218.1920.1057/0.23.1280.715@-1920.-218.1920.1057" timestamp="1609600637040" />
   </component>
 </project>

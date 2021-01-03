@@ -99,11 +99,11 @@ def part2_vae_hyperparams():
     )
     # TODO: Tweak the hyperparameters to generate a former president.
     # ====== YOUR CODE: ======
-    hypers['batch_size'] = 64
-    hypers['h_dim'] = 256
-    hypers['z_dim'] = 64
+    hypers['batch_size'] = 8
+    hypers['h_dim'] = 64
+    hypers['z_dim'] = 16
     hypers['x_sigma2'] = 0.0009
-    hypers['learn_rate'] = 0.0002
+    hypers['learn_rate'] = 0.0001
     hypers['betas'] = (0.9, 0.999)
 
     # ========================
@@ -114,12 +114,10 @@ part2_q1 = r"""
 **Your answer:**
 
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+The $\sigma ^2$ signifies two things:  
+1. Measures how much uncertainty we have in the generation of the instance given it’s latent representation. The bigger $ \sigma $ is, the bigger the uncertainty, the less the data is “trust-worthy”.   
+2. Interpreted as the strength of the regularisation term. The bigger $ \sigma $ is, the stronger the regularisation is.  
+When experimenting on different x_sigma2 values, it could be seen that for larger values the results were bad. The model either wasn’t able to learn, or the pictures it produced were identical. These results can be explained by the role of sigma as explained above.   
 
 """
 
@@ -127,12 +125,14 @@ part2_q2 = r"""
 **Your answer:**
 
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+1. VAE loss can be separated into 2 distinct parts:   
+The first being the Reconstruction loss, which acts as the Data term. The purpose of the Reconstruction term is to make the ‘encoding-decoding’ scheme as efficient as possible.  
+The second being the KL divergence loss, which acts as the Regularisation term. The purpose of the Regularisation term is to regularise the organisation of the latent space, by making the distributions returned by the encoder close to a std normal distribution. 
+
+2. The KL loss term encourages the encoder to distribute all encodings evenly around the centre of the latent space.   
+
+3. The benefit of this effect if the model distributes the encoding clusters apart, away from the origin, it will be penalised. Thus, avoiding overfitting and ensuring that the latent space has good properties that enable generative process.   
+
 
 """
 
@@ -140,12 +140,8 @@ part2_q3 = r"""
 **Your answer:**
 
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+The training objective of the model is to maximise the probability of $ p(X) $- the evidence.
+By selecting the hyperparameter $ \beta $ we want to build a probabilistic model of the evidence, from which the data could actually be sampled from. Therefore, we want to maximise the probability of the actual data we received. 
 
 """
 
@@ -153,12 +149,7 @@ part2_q4 = r"""
 **Your answer:**
 
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+Since we assume that the true posterior takes on an approximate Gaussian form with an approximately diagonal covariance. Thus, we calculate the variational approximate posterior as a multivariate Gaussian with a diagonal covariance structure: $$ log \mathcal{N} (z; \mu, \sigma ² \mathcal{I}) $$
 
 """
 
