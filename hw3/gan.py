@@ -215,13 +215,14 @@ def train_batch(
     #  2. Calculate generator loss
     #  3. Update generator parameters
     # ====== YOUR CODE: ======
-    gen_optimizer.zero_grad()
-    
-    x_z = gen_model.sample(batch_size, True)
-    score = dsc_model(x_z)
-    gen_loss = gen_loss_fn(score)
-    gen_loss.backward()
-    gen_optimizer.step()
+    for _ in range(2):
+        gen_optimizer.zero_grad()
+
+        x_z = gen_model.sample(batch_size, True)
+        score = dsc_model(x_z)
+        gen_loss = gen_loss_fn(score)
+        gen_loss.backward()
+        gen_optimizer.step()
     
     # ========================
 
@@ -238,20 +239,20 @@ def save_checkpoint(gen_model, dsc_losses, gen_losses, checkpoint_file):
     """
 
     saved = False
-    checkpoint_file = f"{checkpoint_file}.pt"
+    epoch = len(dsc_losses)
+    checkpoint_file = f"{checkpoint_file}_{epoch}.pt"
     # TODO:
     #  Save a checkpoint of the generator model. You can use torch.save().
     #  You should decide what logic to use for deciding when to save.
     #  If you save, set saved to True.
     # ====== YOUR CODE: ======
-    avg_dsc_loss = sum(dsc_losses)/len(dsc_losses)
-    avg_gen_loss = sum(gen_losses)/len(gen_losses)
+    avg_dsc_loss = dsc_losses[-1]
+    avg_gen_loss = gen_losses[-1]
     
-    print(avg_dsc_loss)
-    print(avg_gen_loss)
-#     if(dsc_losses)
-#     torch.save(gen_model, checkpoint_filename)
-        
+    if(epoch>20):
+        torch.save(gen_model, checkpoint_file)
+        print("saved checkpoint")
+        saved = True
 
     # ========================
 
